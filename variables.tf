@@ -24,3 +24,10 @@ variable "region" {
   description = "The OCI Region of the Tenancy"
   type        = string
 }
+
+variable "project_name" {
+  description = "The name of the project"
+  type        = string
+
+  default = "oracle-cloud-kubernetes"
+}
