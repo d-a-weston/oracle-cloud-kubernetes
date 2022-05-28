@@ -17,6 +17,10 @@ resource "oci_core_instance" "control_plane" {
   create_vnic_details {
     subnet_id = oci_core_subnet.kubernetes_subnet.id
   }
+
+  metadata = {
+    ssh_authorized_keys = trimspace(tls_private_key.ssh.public_key_openssh)
+  }
 }
 
 resource "oci_core_instance" "worker" {
@@ -39,5 +43,9 @@ resource "oci_core_instance" "worker" {
 
   create_vnic_details {
     subnet_id = oci_core_subnet.kubernetes_subnet.id
+  }
+
+  metadata = {
+    ssh_authorized_keys = trimspace(tls_private_key.ssh.public_key_openssh)
   }
 }

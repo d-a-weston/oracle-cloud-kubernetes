@@ -34,5 +34,6 @@ override.tf.json
 .terraformrc
 terraform.rc
 
-# Ignore OCI Key
+# Ignore TLS Keys
 *.pem
+*.pub
