@@ -31,3 +31,17 @@ variable "project_name" {
 
   default = "oracle-cloud-kubernetes"
 }
+
+variable "vcn_cidr" {
+  description = "CIDR Block for the VCN"
+  type        = string
+
+  default = "10.0.0.0/16"
+}
+
+variable "kubernetes_subnet_cidr" {
+  description = "CIDR Block for the Kubernetes subnet"
+  type        = string
+
+  default = "10.0.0.0/24"
+}
