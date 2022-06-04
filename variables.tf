@@ -53,11 +53,32 @@ variable "kubernetes_subnet_cidr" {
   default = "10.0.0.0/24"
 }
 
+variable "control_plane_display_name" {
+  description = "Display name for the control plane instance"
+  type        = string
+
+  default = "kubernetes-control-plane"
+}
+
+variable "control_plane_private_ip" {
+  description = "Private IP for the Control Plane, required for Workers to join the cluster"
+  type        = string
+
+  default = "10.0.0.100"
+}
+
 variable "worker_count" {
   description = "The number of worker instances required"
   type        = number
 
   default = 3
+}
+
+variable "worker_display_name_prefix" {
+  description = "Prefix for the worker instance display name"
+  type        = string
+
+  default = "kubernetes-worker"
 }
 
 variable "instance_shape" {
