@@ -1,0 +1,21 @@
+write_files:
+  - path: /etc/kubeadm_config.yaml
+    owner: "root:root"
+    permissions: "0600"
+    content: |
+      kind: InitConfiguration
+      apiVersion: kubeadm.k8s.io/v1beta3
+      bootstrapTokens:
+        - token: ${kubeadm_token}
+      ---
+      kind: KubeletConfiguration
+      apiVersion: kubelet.config.k8s.io/v1beta1
+      cgroupDriver: cgroupfs
+      ---
+      kind: ClusterConfiguration
+      apiVersion: kubeadm.k8s.io/v1beta3
+      apiServer:
+        certSANs:
+          - @@PUBLIC_IP@@
+      networking:
+        podSubnet: "10.244.0.0/16"

@@ -21,6 +21,7 @@ resource "oci_core_instance" "control_plane" {
 
   metadata = {
     ssh_authorized_keys = trimspace(tls_private_key.ssh.public_key_openssh)
+    user_data           = data.cloudinit_config.control_plane.rendered
   }
 }
 
@@ -48,6 +49,7 @@ resource "oci_core_instance" "worker" {
 
   metadata = {
     ssh_authorized_keys = trimspace(tls_private_key.ssh.public_key_openssh)
+    user_data           = data.cloudinit_config.worker[count.index].rendered
   }
 
   lifecycle {

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Unblock all incoming traffic
+iptables -I INPUT 1 -j ACCEPT
+
+# Verify the Control Plane is alive
+while ! curl --insecure https://${control_plane_private_ip}; do
+  echo "Control Plane not yet initialised, retrying in ${retry_time} seconds..."
+  sleep ${retry_time}
+done
+
+# Join this worker to the cluster
+echo "Control Plane appears to be online, joining the cluster..."
+kubeadm join --discovery-token-unsafe-skip-ca-verification --token ${kubeadm_token} ${control_plane_private_ip}

@@ -1,0 +1,56 @@
+${yamlencode({
+    "hostname": "${hostname}",
+    "package_update": true,
+    "package_upgrade": true,
+    "packages": [
+      "apt-transport-https",
+      "docker.io",
+      "kubeadm",
+      "kubelet",
+    ],
+    "apt": {
+      "sources": {
+        "kubernetes.list": {
+          "source": "deb https://packages.cloud.google.com/apt/ kubernetes-xenial main",
+          "key": "${kubernetes_repo_key}"
+        }
+      }
+    },
+    "users": [
+      "default",
+      {
+        "name": "k8s",
+        "primary_group": "k8s",
+        "groups": "docker",
+        "home": "/home/k8s",
+        "shell": "/bin/bash",
+        "sudo": "ALL=(ALL) NOPASSWD:ALL",
+        "ssh_authorized_keys": [
+          "${tls_public_key}",
+        ]
+      },
+    ],
+    "write_files": [
+      {
+        "path": "/etc/kubeadm_token",
+        "owner": "root:root",
+        "permissions": "0600",
+        "content": "${kubeadm_token}"
+      },
+      {
+        "path": "/home/k8s/.ssh/id_rsa",
+        "defer": true,
+        "owner": "k8s:k8s",
+        "permissions": "0600",
+        "content": "${tls_private_key}"
+      },
+      {
+        "path": "/home/k8s/.ssh/id_rsa.pub",
+        "defer": true,
+        "owner": "k8s:k8s",
+        "permissions": "0600",
+        "content": "${tls_public_key}"
+      },
+    ],
+  })
+}
