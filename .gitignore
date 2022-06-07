@@ -37,3 +37,4 @@ terraform.rc
 # Ignore TLS Keys
 *.pem
 *.pub
+kubeconfig

@@ -19,4 +19,5 @@ region          = "ap-sydney-1"
 
 6. Run `terraform init`
 7. Run `terraform apply`
-8. Enjoy!
+8. Run `export KUBECONFIG=$PWD/kubeconfig`
+9. Enjoy!
