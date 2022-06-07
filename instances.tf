@@ -52,6 +52,7 @@ resource "oci_core_instance" "worker" {
     user_data           = data.cloudinit_config.worker[count.index].rendered
   }
 
+  # If we modify the control plane, we want to restart the worker nodes
   lifecycle {
     replace_triggered_by = [
       oci_core_instance.control_plane

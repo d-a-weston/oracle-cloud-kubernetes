@@ -37,20 +37,6 @@ ${yamlencode({
         "permissions": "0600",
         "content": "${kubeadm_token}"
       },
-      {
-        "path": "/home/k8s/.ssh/id_rsa",
-        "defer": true,
-        "owner": "k8s:k8s",
-        "permissions": "0600",
-        "content": "${tls_private_key}"
-      },
-      {
-        "path": "/home/k8s/.ssh/id_rsa.pub",
-        "defer": true,
-        "owner": "k8s:k8s",
-        "permissions": "0600",
-        "content": "${tls_public_key}"
-      },
     ],
   })
 }
